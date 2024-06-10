@@ -1,4 +1,5 @@
 import { Agenda } from "@/interfaces/Agenda"
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 type DashboardProps = {
@@ -20,10 +21,10 @@ export default function Dashboard({ agendas }: DashboardProps) {
     }
 
     return (
-        <div>
+        <div className="flex flex-col justify-center items-center">
             <h1>Dashboard</h1>
             {agendas.map(agenda => (
-                <Agenda id={agenda.id} name={agenda.name}></Agenda>
+                <Agenda key={agenda.id} id={agenda.id} name={agenda.name}></Agenda>
             ))}
         </div>
     )

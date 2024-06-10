@@ -25,8 +25,6 @@ export default async function AgendaPage({ params }: PageProps) {
   }
 
   return (
-    <div>
-      <Agenda name={agenda.name} agendaId={agendaNum}></Agenda>
-    </div>
+    <Agenda key={agenda.id} name={agenda.name} agendaId={agendaNum}></Agenda>
   )
 }

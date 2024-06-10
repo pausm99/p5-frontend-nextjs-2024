@@ -9,13 +9,13 @@ type AgendaProps = {
 export default async function Agenda({ agendaId, name }: AgendaProps) {
     const contacts: Contact[] = await dbGetContactsFromAgenda(agendaId)
     return (
-        <div>
+        <>
             <h1>{name}</h1>
             <ul>
                 {contacts.map(contact => (
-                    <li>{contact.name}</li>
+                    <li key={contact.id}>{contact.name}</li>
                 ))}
             </ul>
-        </div>
+        </>
     )
 }

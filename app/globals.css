@@ -76,7 +76,7 @@
 }
 
 main {
-  @apply p-8;
+  @apply flex justify-center items-center;
 }
 
 h1 {
