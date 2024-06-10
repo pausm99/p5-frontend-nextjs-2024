@@ -74,3 +74,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+main {
+  @apply p-8;
+}
+
+h1 {
+  @apply font-bold text-3xl mb-4;
+}
