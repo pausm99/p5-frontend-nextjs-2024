@@ -21,6 +21,13 @@ export function AgendaForm() {
     const [open, setOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
+    const handleOpenChange = (isOpen: boolean) => {
+        setOpen(isOpen);
+        if (!isOpen) {
+            setErrorMessage("");
+        }
+    };
+
 
     const createAgenda = async (formData: FormData) => {
         const result = await actionCreateAgenda(formData)
@@ -35,12 +42,12 @@ export function AgendaForm() {
     }
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogTrigger asChild>
                 <Button className="absolute top-0 right-0" size="icon">+</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
+                <DialogHeader className="gap-2">
                     <DialogTitle>Create new agenda</DialogTitle>
                     <DialogDescription>
                         Add a name to identify your agenda. Click save when you're done.
@@ -50,7 +57,7 @@ export function AgendaForm() {
                     <form ref={formRef} action={createAgenda}>
                         <div className="grid gap-4 py-4">
                             <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="name" className="text-right">
+                                <Label htmlFor="name" className="text-center">
                                     Name
                                 </Label>
                                 <Input
@@ -64,7 +71,7 @@ export function AgendaForm() {
                             </div>
                         </div>
                         <DialogFooter>
-                            <Button type="submit">Save changes</Button>
+                            <Button type="submit">Save</Button>
                         </DialogFooter>
                     </form>
                 </div>
