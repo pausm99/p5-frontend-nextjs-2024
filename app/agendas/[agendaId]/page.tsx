@@ -1,4 +1,5 @@
-import Agenda from "@/components/Agenda"
+
+import AgendaContacts from "@/components/AgendaContacts"
 import { dbGetAgenda } from "@/db/agenda"
 
 import { notFound } from "next/navigation"
@@ -26,6 +27,6 @@ export default async function AgendaPage({ params }: PageProps) {
   }
 
   return (
-    <Agenda key={agenda.id} name={agenda.name} agendaId={agendaNum}></Agenda>
+    <AgendaContacts key={agenda.id} name={agenda.name} agendaId={agendaNum}></AgendaContacts>
   )
 }

@@ -1,24 +1,26 @@
-import { Contact } from "@/interfaces/Contact"
-import { dbGetContactsFromAgenda } from "@/db/contact"
-import GoBackButton from "./GoBackButton"
+import Link from 'next/link';
+import { Card, CardContent } from './ui/card';
 
 type AgendaProps = {
-    agendaId: number
+    id: number,
     name: string
 }
 
-export default async function Agenda({ agendaId, name }: AgendaProps) {
-    const contacts: Contact[] = await dbGetContactsFromAgenda(agendaId)
-
+export default function Agenda({ id, name }: AgendaProps) {
+    const path = `agendas/${id}`;
+    
     return (
-        <div className="relative">
-            <h1>{name}</h1>
-            <ul>
-                {contacts.map(contact => (
-                    <li key={contact.id}>{contact.name}</li>
-                ))}
-            </ul>
-            <GoBackButton></GoBackButton>
-        </div>
+        <Link
+            key={id}
+            href={path}
+        >
+            <Card className="text-center bg-white shadow-md rounded-lg overflow-hidden transition-all ease-in-out duration-300 hover:shadow-xl">
+                <CardContent className="gap-4 p-6">
+                    <div className="space-y-1">
+                        <h2 className="text-lg font-semibold">{name}</h2>
+                    </div>
+                </CardContent>
+            </Card>
+        </Link>
     )
 }
