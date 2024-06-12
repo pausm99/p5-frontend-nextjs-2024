@@ -1,6 +1,7 @@
 import { dbGetContactsFromAgenda } from "@/db/contact"
 import { Contact } from "@/interfaces/Contact"
 import GoBackButton from "./GoBackButton"
+import DeleteAgenda from "./DeleteAgenda"
 
 type AgendaProps = {
     agendaId: number
@@ -19,6 +20,7 @@ export default async function AgendaContacts({ agendaId, name }: AgendaProps) {
                 ))}
             </ul>
             <GoBackButton></GoBackButton>
+            <DeleteAgenda id={agendaId}></DeleteAgenda>
         </div>
     )
 }
