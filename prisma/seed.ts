@@ -12,7 +12,7 @@ async function createAgendas() {
       { name: "HR Contacts" },
       { name: "HQ Contacts" },
       { name: "Main agenda" },
-      { name: "Clients agena" },
+      { name: "Clients agenda" },
       { name: "Personal agenda" },
       { name: "My agenda" },
     ],
