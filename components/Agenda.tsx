@@ -1,5 +1,6 @@
 import { Contact } from "@/interfaces/Contact"
-import { dbGetContactsFromAgenda } from "@/lib/contact"
+import { dbGetContactsFromAgenda } from "@/db/contact"
+import GoBackButton from "./GoBackButton"
 
 type AgendaProps = {
     agendaId: number
@@ -8,14 +9,16 @@ type AgendaProps = {
 
 export default async function Agenda({ agendaId, name }: AgendaProps) {
     const contacts: Contact[] = await dbGetContactsFromAgenda(agendaId)
+
     return (
-        <>
+        <div className="relative">
             <h1>{name}</h1>
             <ul>
                 {contacts.map(contact => (
                     <li key={contact.id}>{contact.name}</li>
                 ))}
             </ul>
-        </>
+            <GoBackButton></GoBackButton>
+        </div>
     )
 }

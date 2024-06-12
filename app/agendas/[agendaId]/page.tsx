@@ -1,5 +1,6 @@
 import Agenda from "@/components/Agenda"
-import { dbGetAgenda } from "@/lib/agenda"
+import { dbGetAgenda } from "@/db/agenda"
+
 import { notFound } from "next/navigation"
 
 type PageProps = {

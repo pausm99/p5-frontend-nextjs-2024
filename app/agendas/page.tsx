@@ -1,11 +1,9 @@
 import Dashboard from '@/components/Dashboard';
-import { dbGetAgendas } from '@/lib/agenda';
+import { dbGetAgendas } from '@/db/agenda';
 
 export default async function Agendas() {
   const agendas = await dbGetAgendas();
   return (
-    <main>
-        <Dashboard agendas={agendas}></Dashboard>
-    </main>
+    <Dashboard agendas={agendas}></Dashboard>
   )
 }
