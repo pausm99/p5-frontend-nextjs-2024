@@ -1,14 +1,21 @@
 import db from "@/db/db";
 
-const agenda = await createAgenda();
-const contacts = await createContacts(agenda.id);
-console.log(`Created agenda ${agenda.id} with ${contacts.count} contacts.`);
+const agendas = await createAgendas();
+const firstAgenda = agendas[0];
+const contacts = await createContacts(firstAgenda.id);
+console.log(`Created agenda ${firstAgenda.id} with ${contacts.count} contacts.`);
 
-async function createAgenda() {
-  return await db.agenda.create({
-    data: {
-      name: "User's agenda",
-    },
+async function createAgendas() {
+  return await db.agenda.createManyAndReturn({
+    data: [
+      { name: "Dunder Mifflin's agenda" },
+      { name: "HR Contacts" },
+      { name: "HQ Contacts" },
+      { name: "Main agenda" },
+      { name: "Clients agena" },
+      { name: "Personal agenda" },
+      { name: "My agenda" },
+    ],
   });
 }
 
