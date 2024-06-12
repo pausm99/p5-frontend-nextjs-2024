@@ -11,3 +11,10 @@ export const dbGetAgenda = async (agendaId: number) => {
   });
   return agenda;
 };
+
+export const dbCreateAgenda = async (name: string) => {
+  const agenda = await db.agenda.create({
+    data: { name }
+  })
+  return agenda
+}
