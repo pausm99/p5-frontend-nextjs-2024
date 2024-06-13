@@ -1,6 +1,7 @@
 "use client";
 
 import { actionDeleteAgenda } from "@/actions/agenda";
+import { useRouter } from "next/navigation";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -11,10 +12,8 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "./ui/alert-dialog"
+} from "./ui/alert-dialog";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useToast } from "./ui/use-toast";
 
 type DeleteAgendaProps = {
@@ -33,6 +32,7 @@ export default function DeleteAgenda({ id }: DeleteAgendaProps) {
         }
         else {
             toast({
+                variant: "destructive",
                 title: "Error",
                 description: result.message
             })
