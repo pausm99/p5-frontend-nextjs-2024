@@ -2,7 +2,7 @@ export interface Contact {
   id: number;
   name: string;
   prefix: number;
-  number: bigint;
+  number: string;
   birthDate: Date;
   notes: string;
   createdAt: Date;
