@@ -16,7 +16,7 @@ export default async function AgendaContacts({ agendaId, name }: AgendaProps) {
         <div className="relative flex flex-col">
             <h1>{name}</h1>
             {
-                contacts.length > 0 ? <ContactList contacts={contacts} /> : 'Not contacts'
+                contacts.length > 0 ? <ContactList contacts={contacts} /> : <h2 className="text-xl p-8">No contacts...</h2>
             }
             <GoBackButton />
             <Actions agendaId={agendaId} name={name}/>
