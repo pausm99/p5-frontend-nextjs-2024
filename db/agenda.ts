@@ -19,6 +19,14 @@ export const dbCreateAgenda = async (name: string) => {
   return agenda;
 };
 
+export const dbEditAgenda = async (name: string, agendaId: number) => {
+  const agenda = await db.agenda.update({
+    data: { name },
+    where: { id: agendaId },
+  });
+  return agenda;
+};
+
 export const dbDeleteAgenda = async (id: number) => {
   const deletedAgenda = db.agenda.delete({ where: { id } });
   return deletedAgenda;

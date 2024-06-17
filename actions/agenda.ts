@@ -1,6 +1,6 @@
 "use server";
 
-import { dbCreateAgenda, dbDeleteAgenda } from "@/db/agenda";
+import { dbCreateAgenda, dbDeleteAgenda, dbEditAgenda } from "@/db/agenda";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -9,15 +9,21 @@ const agendaSchema = z.object({
   name: z.string().min(3, "Name should be at least 3 characters long"),
 });
 
-export async function actionCreateAgenda(formData: FormData) {
+export async function actionHandleAgenda(
+  formData: FormData,
+  edit: boolean,
+  agendaId?: number
+) {
   try {
     const name = formData.get("name")?.toString();
 
     agendaSchema.parse({ name });
 
     if (name) {
-      await dbCreateAgenda(name);
-      revalidatePath("/agendas");
+      edit ? await dbEditAgenda(name, agendaId!) : await dbCreateAgenda(name);
+      edit
+        ? revalidatePath(`/agendas/${agendaId}`)
+        : revalidatePath("/agendas");
     }
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -31,7 +37,8 @@ export async function actionCreateAgenda(formData: FormData) {
     }
     return {
       success: false,
-      message: "Failed to create agenda. Please try again.",
+      message:
+        "Failed to" + edit ? "edit" : "create" + "agenda. Please try again.",
     };
   }
   return { success: true };

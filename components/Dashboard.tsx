@@ -17,7 +17,9 @@ export default function Dashboard({ agendas }: DashboardProps) {
                     </li>
                 ))}
             </ul>
-            <AgendaForm></AgendaForm>
+            <div className="absolute top-0 right-0">
+                <AgendaForm></AgendaForm>
+            </div>
         </div>
     )
 }

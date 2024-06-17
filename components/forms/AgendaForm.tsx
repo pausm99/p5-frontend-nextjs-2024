@@ -1,6 +1,6 @@
 "use client";
 
-import { actionCreateAgenda } from "@/actions/agenda";
+import { actionHandleAgenda } from "@/actions/agenda";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -15,11 +15,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRef, useState } from "react";
 
-export function AgendaForm() {
+type AgendaFormProps = {
+    agendaId?: number;
+    name?: string
+}
+
+export function AgendaForm({ agendaId, name }: AgendaFormProps) {
+    let edit = false;
+    if (agendaId) edit = true;
 
     const formRef = useRef<HTMLFormElement>(null);
     const [open, setOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [agendaName, setAgendaName] = useState(name || "");
 
     const handleOpenChange = (isOpen: boolean) => {
         setOpen(isOpen);
@@ -28,9 +36,14 @@ export function AgendaForm() {
         }
     };
 
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setAgendaName(e.target.value);
+    };
 
-    const createAgenda = async (formData: FormData) => {
-        const result = await actionCreateAgenda(formData)
+    const actionAgenda = async (formData: FormData) => {
+        formData.set('name', agendaName);
+        const result = await actionHandleAgenda(formData, edit, agendaId)
+
         if (result.success) {
             formRef.current?.reset();
             setOpen(false)
@@ -44,17 +57,23 @@ export function AgendaForm() {
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogTrigger asChild>
-                <Button className="absolute top-0 right-0" size="icon">+</Button>
+                <Button size="icon">
+                    {
+                        edit
+                        ?  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M3 21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2-2.92l9.06-9.06l.92.92L5.92 19H5zM18.37 3.29a.996.996 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83a.996.996 0 0 0 0-1.41z"></path></svg>
+                        : '+'
+                    }
+                </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader className="gap-2">
-                    <DialogTitle>Create new agenda</DialogTitle>
+                    <DialogTitle>{!edit ? 'Create new' : 'Edit'} agenda</DialogTitle>
                     <DialogDescription>
-                        Add a name to identify your agenda. Click save when you're done.
+                        {!edit ? 'Add a name to identify' : 'Edit the name that identifies'} your agenda. Click save when you're done.
                     </DialogDescription>
                 </DialogHeader>
                 <div>
-                    <form ref={formRef} action={createAgenda}>
+                    <form ref={formRef} action={actionAgenda}>
                         <div className="grid gap-4 py-4">
                             <div className="grid grid-cols-4 items-center gap-4">
                                 <Label htmlFor="name" className="text-center">
@@ -66,6 +85,8 @@ export function AgendaForm() {
                                     name="name"
                                     placeholder="My agenda"
                                     className="col-span-3"
+                                    value={edit ? agendaName : undefined}
+                                    onChange={handleNameChange}
                                 />
                                 {errorMessage && <p className="text-red-500 col-span-4">{errorMessage}</p>}
                             </div>
