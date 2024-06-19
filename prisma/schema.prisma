@@ -20,6 +20,7 @@ model Contact {
   id        Int      @id @default(autoincrement())
   name      String
   prefix    Int
+  email     String
   number    String      @unique
   birthDate DateTime
   notes     String
