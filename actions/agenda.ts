@@ -17,10 +17,10 @@ export async function actionHandleAgenda(
   try {
     const name = formData.get("name")?.toString();
 
-    agendaSchema.parse({ name });
+    const parsedName = agendaSchema.parse({ name });
 
-    if (name) {
-      edit ? await dbEditAgenda(name, agendaId!) : await dbCreateAgenda(name);
+    if (parsedName.name) {
+      edit ? await dbEditAgenda(parsedName.name, agendaId!) : await dbCreateAgenda(parsedName.name);
       edit
         ? revalidatePath(`/agendas/${agendaId}`)
         : revalidatePath("/agendas");

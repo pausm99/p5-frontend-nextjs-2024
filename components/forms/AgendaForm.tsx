@@ -69,7 +69,7 @@ export function AgendaForm({ agendaId, name }: AgendaFormProps) {
                 <DialogHeader className="gap-2">
                     <DialogTitle>{!edit ? 'Create new' : 'Edit'} agenda</DialogTitle>
                     <DialogDescription>
-                        {!edit ? 'Add a name to identify' : 'Edit the name that identifies'} your agenda. Click save when you're done.
+                        {!edit ? 'Add a name to identify' : 'Edit the name that identifies'} your agenda. Click save when you are done.
                     </DialogDescription>
                 </DialogHeader>
                 <div>
@@ -88,7 +88,7 @@ export function AgendaForm({ agendaId, name }: AgendaFormProps) {
                                     value={edit ? agendaName : undefined}
                                     onChange={handleNameChange}
                                 />
-                                {errorMessage && <p className="text-red-500 col-span-4">{errorMessage}</p>}
+                                {errorMessage && <p className="text-red-500 text-xs col-start-2 col-span-4">{errorMessage}</p>}
                             </div>
                         </div>
                         <DialogFooter>

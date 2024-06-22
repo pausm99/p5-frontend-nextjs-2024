@@ -1,11 +1,12 @@
 export interface Contact {
-  id: number;
+  id?: number;
   name: string;
   email: string;
   prefix: number;
   number: string;
-  birthDate: Date;
+  birthDate: string;
+  agendaId: number;
   notes: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

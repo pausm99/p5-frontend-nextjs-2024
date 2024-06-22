@@ -1,6 +1,7 @@
 import React from 'react'
 import DeleteAgenda from './DeleteAgenda'
 import { AgendaForm } from './forms/AgendaForm'
+import ContactForm from './forms/ContactForm';
 
 type ActionsProps = {
     agendaId: number;
@@ -12,6 +13,7 @@ export default function Actions({ agendaId, name }: ActionsProps) {
         <div className="absolute top-0 right-0 flex justify-between items-center gap-2">
             <DeleteAgenda id={agendaId}></DeleteAgenda>
             <AgendaForm agendaId={agendaId} name={name}></AgendaForm>
+            <ContactForm agendaId={agendaId} contactId={undefined}></ContactForm>
         </div>
     )
 }

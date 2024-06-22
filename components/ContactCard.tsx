@@ -1,12 +1,12 @@
 "use client";
 
 import { Contact } from "@/interfaces/Contact";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { getInitials } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
-import { useRouter } from "next/router";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 type ContactCardProps = {
     contact: Contact
@@ -16,13 +16,6 @@ export default function ContactCard({ contact }: ContactCardProps) {
 
     const pathName = usePathname()
     const path = `${pathName}/contacts/${contact.id}`
-
-    const getInitials = (name: string) => {
-        const nameSplit = name.split(' ');
-        return nameSplit.length > 1
-            ? nameSplit[0][0].toUpperCase() + nameSplit[1][0].toUpperCase()
-            : name[0].toUpperCase();
-    }
 
     return (
         <Card className="w-[350px]">
