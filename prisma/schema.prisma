@@ -22,7 +22,7 @@ model Contact {
   prefix    Int
   email     String
   number    String      @unique
-  birthDate DateTime
+  birthDate String
   notes     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
