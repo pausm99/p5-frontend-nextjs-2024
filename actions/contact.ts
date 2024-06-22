@@ -1,6 +1,6 @@
 "use server";
 
-import { dbCreateContact } from "@/db/contact";
+import { dbCreateContact, dbDeleteContact } from "@/db/contact";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -79,6 +79,24 @@ export async function actionHandleContact(
             " contact. Please try again.",
         },
       ],
+    };
+  }
+  return { success: true };
+}
+
+export async function actionDeleteContact(id: number) {
+  try {
+    await dbDeleteContact(id);
+  } catch (error) {
+    if (
+      error instanceof PrismaClientKnownRequestError &&
+      error.code === "P2025"
+    ) {
+      return { success: false, message: "Contact does not exist" };
+    }
+    return {
+      success: false,
+      message: "Failed to delete contact. Please try again.",
     };
   }
   return { success: true };

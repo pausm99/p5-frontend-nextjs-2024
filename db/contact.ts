@@ -12,7 +12,7 @@ export const dbGetContactsFromAgenda = async (agendaId: number) => {
 };
 
 export const dbGetContact = async (contactId: number) => {
-  const contact = await db.contact.findUniqueOrThrow({
+  const contact = await db.contact.findUnique({
     where: { id: contactId },
   });
   return contact;
@@ -23,4 +23,9 @@ export const dbCreateContact = async (payload: Contact) => {
     data: payload
   });
   return createdContact;
+};
+
+export const dbDeleteContact = async (id: number) => {
+  const deletedContact = db.contact.delete({ where: { id } });
+  return deletedContact;
 };

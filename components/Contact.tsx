@@ -1,6 +1,6 @@
 import { Contact } from "@/interfaces/Contact";
 import { getInitials } from "@/lib/utils";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
@@ -13,13 +13,13 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import DeleteContact from "./DeleteContact";
 
 type ContactProps = {
   contact: Contact;
 };
 
 export default function ContactComponent({ contact }: ContactProps) {
-
   return (
     <div className="flex flex-col gap-4">
       <Card className="w-[350px]">
@@ -33,7 +33,7 @@ export default function ContactComponent({ contact }: ContactProps) {
           <div className="flex flex-col justify-between items-center">
             <CardTitle className="mb-2">{contact.name}</CardTitle>
             <CardDescription>
-              <span>Last edited: {contact.updatedAt.toDateString()}</span>
+              <span>Last edited: {contact.updatedAt!.toDateString()}</span>
             </CardDescription>
           </div>
           <div className="w-full mt-6 flex justify-center gap-4">
@@ -123,21 +123,13 @@ export default function ContactComponent({ contact }: ContactProps) {
               viewBox="0 0 24 24"
               className="mt-0.5"
             >
-              <g
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-              >
-                <path d="M4 16.5V20a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3.5M3 14v-1a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1m-9-6v3m0-3c1.262 0 2-.968 2-2.625S12 2 12 2s-2 1.718-2 3.375S10.738 8 12 8"></path>
-                <path d="M9 14a3 3 0 1 1-6 0m12 0a3 3 0 1 1-6 0m12 0a3 3 0 1 1-6 0"></path>
-              </g>
+              <path d="M4 16.5V20a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3.5M3 14v-1a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1m-9-6v3m0-3c1.262 0 2-.968 2-2.625S12 2 12 2s-2 1.718-2 3.375S10.738 8 12 8"></path>
+              <path d="M9 14a3 3 0 1 1-6 0m12 0a3 3 0 1 1-6 0m12 0a3 3 0 1 1-6 0"></path>
             </svg>
             <div className="flex-1 flex flex-col">
               <span>Birthday</span>
               <span className="text-black font-light">
-                {dayjs(contact.birthDate).format('MMM DD, YYYY')}
+                {dayjs(contact.birthDate).format("MMM DD, YYYY")}
               </span>
             </div>
           </div>
@@ -149,14 +141,12 @@ export default function ContactComponent({ contact }: ContactProps) {
               viewBox="0 0 24 24"
               className="mt-0.5"
             >
-              <g fill="currentColor">
-                <path d="M6 6a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1m0 4a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1m1 3a1 1 0 1 0 0 2h10a1 1 0 1 0 0-2zm-1 5a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1"></path>
-                <path
-                  fillRule="evenodd"
-                  d="M2 4a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v16a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3zm3-1h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1"
-                  clipRule="evenodd"
-                ></path>
-              </g>
+              <path d="M6 6a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1m0 4a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1m1 3a1 1 0 1 0 0 2h10a1 1 0 1 0 0-2zm-1 5a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1"></path>
+              <path
+                fillRule="evenodd"
+                d="M2 4a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v16a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3zm3-1h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1"
+                clipRule="evenodd"
+              ></path>
             </svg>
 
             <div className="flex-1 flex flex-col">
@@ -167,7 +157,10 @@ export default function ContactComponent({ contact }: ContactProps) {
         </CardContent>
         <CardFooter className="flex items-center justify-evenly px-4">
           <Button variant="secondary">EDIT</Button>
-          <Button variant="destructive">DELETE</Button>
+          <DeleteContact
+            agendaId={contact.agendaId}
+            id={contact.id!}
+          ></DeleteContact>
         </CardFooter>
       </Card>
     </div>

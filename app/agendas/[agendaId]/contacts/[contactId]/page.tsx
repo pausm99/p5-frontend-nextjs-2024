@@ -19,7 +19,7 @@ export default async function ContactPage({ params }: ContactProps) {
     notFound();
   }
 
-  const contact: Contact = await dbGetContact(contactNum);
+  const contact: Contact | null = await dbGetContact(contactNum);
 
   if (!contact) {
     notFound();
