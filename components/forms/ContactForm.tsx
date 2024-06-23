@@ -25,12 +25,12 @@ export default function ContactForm({ agendaId, contact }: ContactFormProps) {
   const edit = !!contact?.id;
 
   const initialFormValues = {
-    name: "" || contact?.name,
-    email: "" || contact?.email,
-    prefix: "" || contact?.prefix,
-    number: "" || contact?.number,
-    birthDate: undefined || contact?.birthDate,
-    notes: "" || contact?.notes,
+    name: contact?.name || "",
+    email: contact?.email || "",
+    prefix: contact?.prefix?.toString() || "", // Convertir a cadena
+    number: contact?.number || "",
+    birthDate: contact?.birthDate || undefined,
+    notes: contact?.notes || "",
   };
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -50,10 +50,19 @@ export default function ContactForm({ agendaId, contact }: ContactFormProps) {
       setFormValues({
         name: contact?.name || "",
         email: contact?.email || "",
-        prefix: contact?.prefix || undefined,
-        number: contact?.number || undefined,
+        prefix: contact?.prefix?.toString() || "",
+        number: contact?.number || "",
         birthDate: contact?.birthDate || undefined,
         notes: contact?.notes || "",
+      });
+
+      setErrors({
+        name: "",
+        email: "",
+        prefix: "",
+        number: "",
+        birthDate: "",
+        notes: "",
       });
     }
   }, [open, contact]);
@@ -163,16 +172,17 @@ export default function ContactForm({ agendaId, contact }: ContactFormProps) {
                   </p>
                 )}
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="number" className="text-center">
+              <div className="grid grid-cols-12 items-center gap-4">
+                <Label htmlFor="number" className="col-span-3 text-center">
                   Number
                 </Label>
+                <span className="col-span-1">+</span>
                 <Input
                   type="text"
                   id="prefix"
                   name="prefix"
-                  placeholder="+34"
-                  className="col-span-1"
+                  placeholder="34"
+                  className="col-span-3"
                   value={formValues.prefix}
                   onChange={handleChange}
                 />
@@ -181,17 +191,17 @@ export default function ContactForm({ agendaId, contact }: ContactFormProps) {
                   id="number"
                   name="number"
                   placeholder="605682361"
-                  className="col-span-2"
+                  className="col-span-5"
                   value={formValues.number}
                   onChange={handleChange}
                 />
                 {errors.prefix && (
-                  <p className="col-span-4 text-red-500 text-xs col-start-2 ">
+                  <p className="col-span-9 text-red-500 text-xs col-start-4 ">
                     {errors.prefix}
                   </p>
                 )}
                 {errors.number && (
-                  <p className="col-span-4 text-red-500 text-xs col-start-2 ">
+                  <p className="col-span-9 text-red-500 text-xs col-start-4 ">
                     {errors.number}
                   </p>
                 )}
