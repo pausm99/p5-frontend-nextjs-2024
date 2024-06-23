@@ -1,7 +1,12 @@
 "use server";
 
-import { dbCreateContact, dbDeleteContact } from "@/db/contact";
+import {
+  dbCreateContact,
+  dbDeleteContact,
+  dbUpdateContact,
+} from "@/db/contact";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import dayjs from "dayjs";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -22,10 +27,10 @@ const contactSchema = z.object({
 
 export async function actionHandleContact(
   formData: FormData,
-  edit: boolean,
   agendaId: number,
   contactId?: number
 ) {
+  const edit = !!contactId
   try {
     const name = formData.get("name")?.toString();
     const email = formData.get("email")?.toString();
@@ -44,16 +49,18 @@ export async function actionHandleContact(
     });
     const sendPayload = {
       ...payload,
-      birthDate: birthDate.toDateString(),
+      birthDate: dayjs(birthDate).format("YYYY-MM-DD"),
       agendaId,
     };
 
     if (name) {
-      //TODO: editContact
-      await dbCreateContact(sendPayload);
-      edit
-        ? revalidatePath(`/agendas/${agendaId}/contacts${contactId}`)
-        : revalidatePath(`/agendas/${agendaId}`);
+      if (edit) {
+        await dbUpdateContact(contactId!, sendPayload);
+        revalidatePath(`/agendas/${agendaId}/contacts${contactId}`);
+      } else {
+        await dbCreateContact(sendPayload);
+        revalidatePath(`/agendas/${agendaId}`);
+      }
     }
   } catch (error) {
     if (error instanceof z.ZodError) {

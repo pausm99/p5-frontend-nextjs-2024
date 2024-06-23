@@ -25,6 +25,14 @@ export const dbCreateContact = async (payload: Contact) => {
   return createdContact;
 };
 
+export const dbUpdateContact = async (id: number, payload: Contact) => {
+  const updatedContact = await db.contact.update({
+    where: { id },
+    data: payload
+  })
+  return updatedContact;
+}
+
 export const dbDeleteContact = async (id: number) => {
   const deletedContact = db.contact.delete({ where: { id } });
   return deletedContact;

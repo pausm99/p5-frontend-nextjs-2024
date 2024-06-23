@@ -13,24 +13,26 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Contact } from "@/interfaces/Contact";
 
 type ContactFormProps = {
   agendaId: number;
-  contactId?: number;
+  contact?: Contact;
 };
 
-const initialFormValues = {
-  name: "",
-  email: "",
-  prefix: "",
-  number: "",
-  birthDate: undefined,
-  notes: "",
-};
+export default function ContactForm({ agendaId, contact }: ContactFormProps) {
+  const edit = !!contact?.id;
 
-export default function ContactForm({ agendaId, contactId }: ContactFormProps) {
-  const edit = !!contactId;
+  const initialFormValues = {
+    name: "" || contact?.name,
+    email: "" || contact?.email,
+    prefix: "" || contact?.prefix,
+    number: "" || contact?.number,
+    birthDate: undefined || contact?.birthDate,
+    notes: "" || contact?.notes,
+  };
+
   const formRef = useRef<HTMLFormElement>(null);
   const [open, setOpen] = useState(false);
   const [formValues, setFormValues] = useState(initialFormValues);
@@ -42,6 +44,19 @@ export default function ContactForm({ agendaId, contactId }: ContactFormProps) {
     birthDate: "",
     notes: "",
   });
+
+  useEffect(() => {
+    if (open) {
+      setFormValues({
+        name: contact?.name || "",
+        email: contact?.email || "",
+        prefix: contact?.prefix || undefined,
+        number: contact?.number || undefined,
+        birthDate: contact?.birthDate || undefined,
+        notes: contact?.notes || "",
+      });
+    }
+  }, [open, contact]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -74,7 +89,9 @@ export default function ContactForm({ agendaId, contactId }: ContactFormProps) {
   };
 
   const handleSubmit = async (formData: FormData) => {
-    const result = await actionHandleContact(formData, edit, agendaId);
+    const result = !edit
+      ? await actionHandleContact(formData, agendaId)
+      : await actionHandleContact(formData, agendaId, contact!.id);
 
     if (!result.success) {
       const validationErrors: any = {};
@@ -90,23 +107,13 @@ export default function ContactForm({ agendaId, contactId }: ContactFormProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="icon" onClick={handleOpen}>
-          {edit ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="currentColor"
-                d="M3 21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2-2.92l9.06-9.06l.92.92L5.92 19H5zM18.37 3.29a.996.996 0 0 0-1.41 0l-1.83 1.83l3.75 3.75l1.83-1.83a.996.996 0 0 0 0-1.41z"
-              ></path>
-            </svg>
-          ) : (
-            "+"
-          )}
-        </Button>
+        {edit ? (
+          <Button onClick={handleOpen}>EDIT</Button>
+        ) : (
+          <Button size="icon" onClick={handleOpen}>
+            +
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader className="gap-2">
