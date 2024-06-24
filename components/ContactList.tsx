@@ -7,7 +7,7 @@ type ContactListProps = {
 
 export default function ContactList({ contacts }: ContactListProps) {
     return (
-        <ul className="h-4/5 overflow-y-scroll flex flex-col gap-2 border border-black rounded-lg p-8">
+        <ul id="contactList" className="overflow-y-scroll flex flex-col gap-2 border border-black rounded-lg p-8">
             {contacts.map(contact => (
                 <li key={contact.id}>
                     <ContactCard contact={contact}></ContactCard>

@@ -10,9 +10,9 @@ export default function Dashboard({ agendas }: DashboardProps) {
     return (
         <div>
             <h1>My agendas</h1>
-            <ul className="flex flex-wrap gap-4">
+            <ul className="grid grid-cols-4 gap-4">
                 {agendas.map(agenda => (
-                    <li key={agenda.id} className="flex-1">
+                    <li className="col-span-2" key={agenda.id}>
                         <AgendaComponent id={agenda.id} name={agenda.name}></AgendaComponent>
                     </li>
                 ))}

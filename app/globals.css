@@ -86,3 +86,7 @@ main > div {
 h1 {
   @apply font-bold text-3xl mb-4;
 }
+
+#contactList {
+  height: 70vh;
+}
