@@ -12,11 +12,8 @@ async function createAgendas() {
     data: [
       { name: "Dunder Mifflin's agenda" },
       { name: "HR Contacts" },
-      { name: "HQ Contacts" },
-      { name: "Main agenda" },
       { name: "Clients agenda" },
       { name: "Personal agenda" },
-      { name: "My agenda" },
     ],
   });
 }
