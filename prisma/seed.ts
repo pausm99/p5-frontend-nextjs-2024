@@ -78,6 +78,15 @@ async function createContacts(agendaId: number) {
         birthDate: "1970-06-01",
         email: "kevin.malone@dundermifflin.com",
       },
+      {
+        name: "Creed Bratton",
+        prefix: 1,
+        number: "5345123477",
+        agendaId,
+        notes: "No comments...",
+        birthDate: "1952-06-01",
+        email: "creed.bratton@dundermifflin.com",
+      },
     ],
   });
 
