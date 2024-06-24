@@ -26,7 +26,7 @@ export default function ContactComponent({ contact }: ContactProps) {
       <Card className="w-[350px]">
         <CardHeader className="flex flex-col gap-3 justify-center items-center">
           <Avatar className="h-20 w-20">
-            <AvatarImage src={""} alt={contact.name} />
+            <AvatarImage src={`/assets/img/${contact.name.split(' ')[0].toLowerCase()}.jpg`} alt={contact.name} />
             <AvatarFallback className="text-xl">
               {getInitials(contact.name)}
             </AvatarFallback>

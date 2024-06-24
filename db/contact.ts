@@ -12,6 +12,7 @@ export const dbGetContactsFromAgenda = async (agendaId: number) => {
 };
 
 export const dbGetContact = async (contactId: number) => {
+  await sleep(1000);
   const contact = await db.contact.findUnique({
     where: { id: contactId },
   });

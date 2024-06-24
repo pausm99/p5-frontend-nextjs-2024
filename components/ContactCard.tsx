@@ -21,7 +21,7 @@ export default function ContactCard({ contact }: ContactCardProps) {
         <Card className="w-[350px]">
             <CardHeader className="flex flex-row gap-3 items-center">
                 <Avatar>
-                    <AvatarImage src={""} alt={contact.name} />
+                    <AvatarImage src={`/assets/img/${contact.name.split(' ')[0].toLowerCase()}.jpg`} alt={contact.name} />
                     <AvatarFallback>{getInitials(contact.name)}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1 flex justify-between items-center">
