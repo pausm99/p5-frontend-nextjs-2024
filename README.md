@@ -1,6 +1,18 @@
 
 # Frontend en React, usando NextJS
 
+## Instrucciones de uso
+
+1. ```bun install```
+2. ```bunx prisma db push```
+3. ```bunx prisma db seed```
+4. ```bun run dev```
+
+*Es necesario tener un archivo `.env` con ```DATABASE_URL="file:./dev.db"``` como contenido*
+
+
+## Enunciado
+
 Se trata de hacer una aplicación con NextJS (así pues, full-stack) que sea muy simple pero utilice las partes clave de dNextJS para hacer un primer uso en un proyecto con la intención de practicar, antes de hacer el proyecto. Es necesario tocar el máximo de las siguientes características de NextJS (con AppRouter):
 
 1. App Router, es decir las carpetas como rutas (`page.tsx`).
